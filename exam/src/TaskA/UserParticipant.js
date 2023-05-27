@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import TankyouComponet from './TankyouComponet'
 
+import AnotherUserParticipant from './AnotherUserParticipant'
 export default function UserParticipant({selection,setSelection,voteCount,setVoteCount}) {
 
+    const [submit,setSubmit] = useState(false)
     const pollObject = {
 
         "question": "What is your favorite programming language?",
@@ -22,7 +25,7 @@ export default function UserParticipant({selection,setSelection,voteCount,setVot
     
     function handleChange(event)
     {
-        const {name , value , type , checked} = event.target
+        const {name , value} = event.target
         setSelection((prev)=>{return {
             ...prev,
             [name]:value}})
@@ -52,25 +55,32 @@ export default function UserParticipant({selection,setSelection,voteCount,setVot
 
     }
 
-    function Onsubmit(){}
+   
+ 
   return (
     <div>
-       <fieldset>
-         {pollObject.choices.map((choice)=>(
-            <>
-
-            <input type='radio' name={"selection"} value={choice.label} checked={selection.selection===choice.label} onChange={(event)=>{handleChange(event)}}/> 
-            <label>{choice.label}</label>
-            <br></br>
-            </>
+    
+    {submit?<><TankyouComponet/><AnotherUserParticipant/></>:<>
+               <fieldset>
+               {pollObject.choices.map((choice)=>(
+                  <>
+      
+                  <input type='radio' name={"selection"} value={choice.label} checked={selection.selection===choice.label} onChange={(event)=>{handleChange(event)}}/> 
+                  <label>{choice.label}</label>
+                  <br></br>
+                  </>
+                    
+               ))}
+               </fieldset>
+      
               
-         ))}
-         </fieldset>
+              <button onClick={()=>setSubmit(!submit)}>Submit Poll</button>
+    
+              </>
+    }
 
 
 
-
-<button onClick={Onsubmit}>Submit Poll</button>
     </div>
   )
 }

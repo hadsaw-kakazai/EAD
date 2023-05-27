@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PollDisplay() {
+export default function PollDisplay({voteCount}) {
 
   const pollObject = {
 
